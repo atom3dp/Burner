@@ -353,10 +353,10 @@ class laserGUI(wx.Panel):
         root.EngSpeed.SetBackgroundColour(GRAYSCALE_1)
         SetupGBSizer.Add(root.EngSpeed, wx.GBPosition(Y_BASELINE+20, BUTTONGPX2), wx.GBSpan(20 , 100), 0, 0)
 
-        self.SpeedText2 = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm/s", wx.DefaultPosition, wx.Size(40, 15), 0)
+        self.SpeedText2 = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm/min", wx.DefaultPosition, wx.Size(60, 15), 0)
         self.SpeedText2.SetForegroundColour(wx.Colour(255, 255, 255))
         self.SpeedText2.SetFont(labelfont)
-        SetupGBSizer.Add(self.SpeedText2, wx.GBPosition(Y_BASELINE+26, BUTTONGPX2+105), wx.GBSpan(15, 40), 0, 0)
+        SetupGBSizer.Add(self.SpeedText2, wx.GBPosition(Y_BASELINE+26, BUTTONGPX2+105), wx.GBSpan(15, 60), 0, 0)
 
         self.SpeedText3 = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"Travel Speed", wx.DefaultPosition,
                                         wx.Size(100, 15), 0)
@@ -369,10 +369,10 @@ class laserGUI(wx.Panel):
         root.TraSpeed.SetBackgroundColour(GRAYSCALE_1)
         SetupGBSizer.Add(root.TraSpeed, wx.GBPosition(Y_BASELINE+20, BUTTONGPX2+165), wx.GBSpan(20, 100), 0, 0)
 
-        self.SpeedText4 = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm/s", wx.DefaultPosition, wx.Size(40, 15), 0)
+        self.SpeedText4 = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm/min", wx.DefaultPosition, wx.Size(60, 15), 0)
         self.SpeedText4.SetForegroundColour(wx.Colour(255, 255, 255))
         self.SpeedText4.SetFont(labelfont)
-        SetupGBSizer.Add(self.SpeedText4, wx.GBPosition(Y_BASELINE+26, BUTTONGPX2+270), wx.GBSpan(15, 40), 0, 0)
+        SetupGBSizer.Add(self.SpeedText4, wx.GBPosition(Y_BASELINE+26, BUTTONGPX2+270), wx.GBSpan(15, 60), 0, 0)
 
         # Right Panel 4-3
         Y_BASELINE = 150
