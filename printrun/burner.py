@@ -1611,6 +1611,12 @@ class PronterWindow(MainWindow, pronsole.pronsole):
     #  --------------------------------------------------------------
 
     def savefile(self, event):
+        filename =  self.FilePathLabel.GetValue()
+        if (not filename) or filename == '':
+            return
+
+        self.convert_png2gcode( filename)
+
         if not self.pngLoaded:
             return
         basedir = self.settings.last_file_path
@@ -2572,6 +2578,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             self.onecmd(line)
 
     def LaserPreview(self, event):
+        filename =  self.FilePathLabel.GetValue()
+        if (not filename) or filename == '':
+            return
+        self.convert_png2gcode( filename)
+
         if (self.pngLoaded==False):
             return
         self.isPreview = True;
@@ -2579,8 +2590,13 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         #self.p.runSmallScript(self.previewfilename)
 
     def LaserStart(self, event):
+        filename =  self.FilePathLabel.GetValue()
+        if (not filename) or filename == '':
+            return
+        self.convert_png2gcode( filename)
         if (self.pngLoaded==False):
             return
+
         self.load_gcode_and_print_async('out.gcode')
 
     def update_focaldist(self, focaldist):
