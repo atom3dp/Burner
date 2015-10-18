@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Burner.  If not, see <http://www.gnu.org/licenses/>.
-__version__ = "2015.09.21"
+__version__ = "2015.10.19"
 
 import os
 import Queue
