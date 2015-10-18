@@ -318,7 +318,8 @@ class laserGUI(wx.Panel):
         SetupGBSizer.Add(self.ResBtnHigh, wx.GBPosition(Y_BASELINE+20, BUTTONGPX2+50+5), wx.GBSpan(20, 50), 0, 0)
 
         root.ResValue = NumCtrl(self.SetupPanel, wx.ID_ANY, 100, wx.DefaultPosition, size=wx.Size(100, 20),
-                                autoSize=False, min=1, max=9999, limited=True, integerWidth=5)
+                                autoSize=False, min=1, max=9999, limited=True, integerWidth=5,
+                                style=wx.TE_PROCESS_ENTER)
 #         root.ResValue.SetBackgroundColour(GRAYSCALE_1)
         SetupGBSizer.Add(root.ResValue, wx.GBPosition(Y_BASELINE+20, BUTTONGPX2+165), wx.GBSpan(20 , 100), 0, 0)
 
@@ -327,6 +328,7 @@ class laserGUI(wx.Panel):
         root.ResType.SetSelection(0)
 #        root.ResType.SetBackgroundColour(GRAYSCALE_1)
         SetupGBSizer.Add(root.ResType, wx.GBPosition(Y_BASELINE+18, BUTTONGPX2+270), wx.GBSpan(30, 100), 0, 0)
+
 
         # Right Panel 4-2
         Y_BASELINE = 85
@@ -407,6 +409,11 @@ class laserGUI(wx.Panel):
         self.FDMtextCtrl.SetForegroundColour(wx.Colour(255, 255, 255))
         self.FDMtextCtrl.SetBackgroundColour(wx.Colour(153, 153, 153))
         SetupGBSizer.Add(self.FDMtextCtrl, wx.GBPosition(Y_BASELINE+Y_OFFSET, BUTTONGPX2), wx.GBSpan(30, 80), 0, 0)
+
+        self.thicklabel = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm", wx.DefaultPosition, wx.Size(30, 15), 0)
+        self.thicklabel.SetForegroundColour(wx.Colour(255, 255, 255))
+        self.thicklabel.SetFont(labelfont)
+        SetupGBSizer.Add(self.thicklabel, wx.GBPosition(Y_BASELINE+Y_OFFSET+10, BUTTONGPX2+270), wx.GBSpan(15, 30), 0, 0)
 
         self.FDMPlusImage = wx.StaticBitmap(self.SetupPanel, wx.ID_ANY,
                                             wx.Bitmap(u"Button/Icon_Plus.png", wx.BITMAP_TYPE_ANY),
@@ -620,6 +627,9 @@ class laserGUI(wx.Panel):
 
         self.ResBtnHigh.Bind(wx.EVT_BUTTON, setEngSpeed(400))
         self.ResBtnLow.Bind(wx.EVT_BUTTON, setEngSpeed(200))
+
+        root.ResValue.Bind(wx.EVT_TEXT, root.reloadPNG)
+        root.ResType.Bind(wx.EVT_COMBOBOX, root.reloadPNG)
 
         self.ImportBtn.Bind(wx.EVT_BUTTON, root.loadpng)
 

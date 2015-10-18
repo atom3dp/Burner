@@ -1377,12 +1377,6 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         self.PNGtoGcode(str(filename))
         self.pngLoaded = True
         self.load_gcode_async(self.filename)
-        if( self.pngSizeTooLarge ):
-            dlg = wx.MessageDialog(self, _("Image is larger than the platform!! Reduce pixel or enlarge resolution."), _("Warning!!"), wx.OK)
-            if dlg.ShowModal() == wx.ID_OK:
-                self.pngLoaded = False
-            dlg.Destroy()
-
 
     def loadfile(self, event, filename = None):
         if self.slicing and self.slicep is not None:
@@ -2597,10 +2591,28 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         if (self.pngLoaded==False):
             return
 
+        if( self.pngSizeTooLarge ):
+            dlg = wx.MessageDialog(self, _("Image is larger than the platform!! Reduce pixel or enlarge resolution."),
+                                   _("Warning!!"), wx.OK)
+            if dlg.ShowModal() == wx.ID_OK:
+                self.pngLoaded = False
+            dlg.Destroy()
+            return
+
         self.load_gcode_and_print_async('out.gcode')
 
     def update_focaldist(self, focaldist):
         self.fdist = float(focaldist)
+
+    def reloadPNG(self, event):
+        filename =  self.FilePathLabel.GetValue()
+        if (not filename) or filename == '':
+            return
+
+        if hasattr(self, "reloadtimer"):
+            self.reloadtimer.cancel()
+        self.reloadtimer = threading.Timer(1.0, self.convert_png2gcode, [filename])
+        self.reloadtimer.start()
 
 
 class PronterApp(wx.App):
