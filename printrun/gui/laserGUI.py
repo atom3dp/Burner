@@ -410,10 +410,11 @@ class laserGUI(wx.Panel):
         self.FDMtextCtrl.SetBackgroundColour(wx.Colour(153, 153, 153))
         SetupGBSizer.Add(self.FDMtextCtrl, wx.GBPosition(Y_BASELINE+Y_OFFSET, BUTTONGPX2), wx.GBSpan(30, 80), 0, 0)
 
+        Y_OFFSET = 45
         self.thicklabel = wx.StaticText(self.SetupPanel, wx.ID_ANY, u"mm", wx.DefaultPosition, wx.Size(30, 15), 0)
         self.thicklabel.SetForegroundColour(wx.Colour(255, 255, 255))
         self.thicklabel.SetFont(labelfont)
-        SetupGBSizer.Add(self.thicklabel, wx.GBPosition(Y_BASELINE+Y_OFFSET+10, BUTTONGPX2+270), wx.GBSpan(15, 30), 0, 0)
+        SetupGBSizer.Add(self.thicklabel, wx.GBPosition(Y_BASELINE+Y_OFFSET, BUTTONGPX2+270), wx.GBSpan(15, 30), 0, 0)
 
         self.FDMPlusImage = wx.StaticBitmap(self.SetupPanel, wx.ID_ANY,
                                             wx.Bitmap(u"Button/Icon_Plus.png", wx.BITMAP_TYPE_ANY),

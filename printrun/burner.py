@@ -1372,9 +1372,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             dlg.Destroy()
 
     def convert_png2gcode(self, filename):
-        self.FilePathLabel.SetLabel(str(filename))
+        self.FilePathLabel.SetLabel(filename.decode('utf-8'))
         self.filename = 'out.gcode'
-        self.PNGtoGcode(str(filename))
+        self.PNGtoGcode(filename.decode('utf-8'))
         self.pngLoaded = True
         self.load_gcode_async(self.filename)
 
@@ -2358,12 +2358,11 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         flip_y = False
         homing = 1
 
-
         reader = png.Reader(pos_file_png_exported)#File PNG generato
         
         w, h, pixels, metadata = reader.read_flat()
-        
-        
+
+
         matrice = [[255 for i in range(w)]for j in range(h)]  #List al posto di un array
         
 
@@ -2611,7 +2610,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
         if hasattr(self, "reloadtimer"):
             self.reloadtimer.cancel()
-        self.reloadtimer = threading.Timer(1.0, self.convert_png2gcode, [filename])
+        self.reloadtimer = threading.Timer(0.5, self.convert_png2gcode, [filename])
         self.reloadtimer.start()
 
 

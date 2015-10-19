@@ -1367,7 +1367,7 @@ class Reader:
         if _guess is not None:
             if isarray(_guess):
                 kw["bytes"] = _guess
-            elif isinstance(_guess, str):
+            elif isinstance(_guess, str) or isinstance(_guess, unicode):
                 kw["filename"] = _guess
             elif hasattr(_guess, 'read'):
                 kw["file"] = _guess
