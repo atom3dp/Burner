@@ -14,7 +14,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with Burner.  If not, see <http://www.gnu.org/licenses/>.
-__version__ = "2015.10.19"
+__version__ = "2016.2.24"
 
 import os
 import Queue
@@ -1629,7 +1629,8 @@ class PronterWindow(MainWindow, pronsole.pronsole):
             open(name, "w").write(file_out_gcode)
             self.log(_("G-Code succesfully saved to %s") % name)
             file_out_gcode = open('preview.gcode', 'r').read()
-            open(name+'. preview', "w").write(file_out_gcode)
+            li = name.rsplit(".gcode", 1)
+            open("_preview.gcode".join(li), "w").write(file_out_gcode)
         dlg.Destroy()
 
     #  --------------------------------------------------------------
@@ -2349,7 +2350,7 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
         self.resolution = 0.1*float(self.ResValue.GetValue())
         if self.ResType.GetValue() == "Pixel/inch":
-            self.resolution *=2.54
+            self.resolution /=2.54
 
         conversion_type = 1
         BW_threshold = 128
@@ -2365,6 +2366,14 @@ class PronterWindow(MainWindow, pronsole.pronsole):
 
         matrice = [[255 for i in range(w)]for j in range(h)]  #List al posto di un array
         
+        #Save setting values
+        self.set("focal_dist", float(self.FDValue.GetValue()))
+        self.set("res_value", float(self.ResValue.GetValue()))
+        self.set("res_unit", self.ResType.GetValue())
+        self.set("speed_engrave", speed_ON)
+        self.set("speed_travel", speed_OFF)
+        self.set("thickness", float(self.Thickness.GetValue()))
+
 
         #Scrivo una nuova immagine in Scala di grigio 8bit
         #copia pixel per pixel 
@@ -2456,9 +2465,9 @@ class PronterWindow(MainWindow, pronsole.pronsole):
         gcode_box += 'G90; Use absolute coordinates\n'
         gcode_box += 'G92; Coordinate Offset\n'
 
-        preview_focus_dist = float(focus_dist) + float(25.)
+        preview_focus_dist = float(focus_dist)
         gcode_box += 'G0 Z'+ str(preview_focus_dist)+' F10000' +'\n'
-        gcode_box += 'M03; Laser ON\n'
+        gcode_box += 'M04; Laser ON low power mode\n'
 
         repeatlines = 'G1 X' + str(pGcode_xmax) + ' Y' + str(pGcode_ymax) +' F' + str(speed_OFF) + '\n'
         repeatlines += 'M0 S1\n'

@@ -278,6 +278,14 @@ class Settings(object):
         self._add(StringSetting("error_command", "", _("Error command"), _("Executable to run when an error occurs"), "External"))
         self._add(StringSetting("log_path", "", _("Log path"), _("Path to the log file. An empty path will log to the console."), "UI"))
 
+        #settings for burner
+        self._add(SpinSetting("focal_dist", 8.5, 0.0, 100.0, _("Focal Distance"), _("Set laser focal distance (mm)."), "Printer"))
+        self._add(SpinSetting("res_value", 100., 0., 1000., _("Resolution value"), _("Set resolution value."), "Printer"))
+        self._add(StringSetting("res_unit", "Pixel/cm", _("Resolution unit"), _("Set resolution unit."), "Printer"))
+        self._add(SpinSetting("speed_engrave", 200, 10, 10000, _("Engrave Speed"), _("Set engrave speed (mm/min)"), "Printer"))
+        self._add(SpinSetting("speed_travel", 3000, 10, 10000, _("Travel Speed"), _("Set travel speed (mm/min)"), "Printer"))
+        self._add(SpinSetting("thickness", 0.0, 0.0, 100.0, _("Focal Distance"), _("Set thickness (mm)"), "Printer"))
+
         self._add(HiddenSetting("project_offset_x", 0.0))
         self._add(HiddenSetting("project_offset_y", 0.0))
         self._add(HiddenSetting("project_interval", 2.0))
